@@ -31,7 +31,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  /* gap: 5px; */
 }
 
 .key {
@@ -44,7 +43,6 @@ body {
   margin-bottom: 5px;
   padding-top: 10px;
   text-align: center;
-  /* flex-shrink: 0; */
 }
 
 #clear,
@@ -52,4 +50,4 @@ body {
 #dot {
   width: 205px;
 }
-/* font size for children of block, and for display another one */
+/* add font styling for children of block, and for display another one */

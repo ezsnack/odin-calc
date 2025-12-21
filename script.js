@@ -63,6 +63,8 @@ function storeFirstNumber() {
 function calculateResult() {
   if (calculated) {
     console.log("result already calculated");
+  } else if (!operatorChosen) {
+    console.log("no operator chosen");
   } else {
     y = parseInt(displayString);
     if (Number.isNaN(y)) {
