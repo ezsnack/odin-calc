@@ -2,7 +2,7 @@ let displayString = "";
 const MAXLEN = 8; //maximum operand number of digits
 let x = NaN; //first operand
 let y = NaN; //second operand
-let method;
+let method = nothing;
 let operatorChosen = false;
 let decimalPointAdded = false;
 let calculated = false;
@@ -30,12 +30,12 @@ for (let number of numbers) {
 for (let operator of operators) {
   operator.addEventListener("click", () => {
     if (operatorChosen) {
-      console.log("operator already chosen");
+      console.log("overwriting operator");
     } else {
       storeFirstNumber();
       operatorChosen = true;
       if (Number.isNaN(x)) {
-        console.log("first operand has not been input");
+        console.log("first operand has not been input or is invalid");
         clear();
       }
     }
@@ -68,7 +68,7 @@ function calculateResult() {
   } else {
     y = parseInt(displayString);
     if (Number.isNaN(y)) {
-      console.log("second operand has not been input");
+      console.log("second operand has not been input or is invalid");
     } else {
       if (method == division && y == 0)
         displayString = "~infinity~";
@@ -76,6 +76,8 @@ function calculateResult() {
         displayString = method(x, y).toString();
       updateDisplay();
       calculated = true;
+      method = nothing;
+      operatorChosen = false;
     }
   }
 }
@@ -83,8 +85,9 @@ function calculateResult() {
 function clear() {
   displayString = "";
   updateDisplay();
-  decimalPointAdded = false;
+  method = nothing;
   operatorChosen = false;
+  decimalPointAdded = false;
   calculated = false;
   x = NaN;
   y = NaN;
@@ -104,4 +107,7 @@ function multiplication(x, y) {
 
 function division(x, y) {
   return x / y;
+}
+
+function nothing() {
 }
