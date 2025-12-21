@@ -70,7 +70,10 @@ function calculateResult() {
     if (Number.isNaN(y)) {
       console.log("second operand has not been input");
     } else {
-      displayString = method(x, y).toString();
+      if (method == division && y == 0)
+        displayString = "~infinity~";
+      else
+        displayString = method(x, y).toString();
       updateDisplay();
       calculated = true;
     }
