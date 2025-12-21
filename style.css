@@ -1,0 +1,55 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#calculator {
+  width: 425px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: gray;
+}
+
+#display {
+  width: 390px;
+  height: 90px;
+  background-color: lightgreen;
+  color: black;
+}
+
+#block {
+  width: 425px;
+  height: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  /* gap: 5px; */
+}
+
+.key {
+  width: 100px;
+  height: 50px;
+  flex: 0 0 auto;
+  color: black;
+  background-color: lightgray;
+  border: 1px solid black;
+  margin-bottom: 5px;
+  padding-top: 10px;
+  text-align: center;
+  /* flex-shrink: 0; */
+}
+
+#clear,
+#calculate,
+#dot {
+  width: 205px;
+}
+/* font size for children of block, and for display another one */
