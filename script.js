@@ -3,9 +3,10 @@ const MAXLEN = 8; //maximum operand number of digits
 let x = NaN; //first operand
 let y = NaN; //second operand
 let method = nothing;
+let firstNumberPresent = false;
 let operatorChosen = false;
 let decimalPointAdded = false;
-let calculated = false;
+let justCalculated = false;
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".op");
@@ -16,8 +17,8 @@ const display = document.querySelector("#display");
 for (let number of numbers) {
   const inputNumber = number.textContent;
   number.addEventListener("click", () => {
-    if (calculated) {
-      console.log("result already calculated. press 'C' to clear");
+    if (justCalculated) {
+      console.log("cannot add numbers to the result. press an operator to calculate using the current result as first value, or press 'C' to clear");
     } else if (displayString.length < MAXLEN) {
       displayString += inputNumber;
       updateDisplay();
@@ -29,13 +30,21 @@ for (let number of numbers) {
 
 for (let operator of operators) {
   operator.addEventListener("click", () => {
-    if (operatorChosen) {
-      console.log("overwriting operator");
-    } else {
-      storeFirstNumber();
+    if (justCalculated) {
+      justCalculated = false;
       operatorChosen = true;
+    } else if (firstNumberPresent) {
+      y = parseInt(displayString);
+      calculateResult();
+      operatorChosen = true;
+      justCalculated = false; // so a new number can be input
+    } else {
+      x = parseInt(displayString);
+      displayString = "";
+      operatorChosen = true;
+      firstNumberPresent = true;
       if (Number.isNaN(x)) {
-        console.log("first operand has not been input or is invalid");
+        console.log("first operand has not been input or is invalid. resetting");
         clear();
       }
     }
@@ -54,31 +63,28 @@ function updateDisplay() {
   display.textContent = displayString;
 }
 
-function storeFirstNumber() {
-  x = parseInt(displayString); //change to parse float later?
-  displayString = "";
-  updateDisplay();
-}
-
 function calculateResult() {
-  if (calculated) {
-    console.log("result already calculated");
-  } else if (!operatorChosen) {
+  y = parseInt(displayString); //change to parse float later?
+  if (!operatorChosen) {
     console.log("no operator chosen");
+  } else if (Number.isNaN(y)) {
+    console.log("second operand has not been input or is invalid. or you pressed two operators after one another");
+    displayString = "";
   } else {
-    y = parseInt(displayString);
-    if (Number.isNaN(y)) {
-      console.log("second operand has not been input or is invalid");
+    if (method == division && y == 0) {
+      displayString = "~infinity~";
+      console.log("division by zero. setting the result to zero");
+      x = 0;
     } else {
-      if (method == division && y == 0)
-        displayString = "~infinity~";
-      else
-        displayString = method(x, y).toString();
-      updateDisplay();
-      calculated = true;
-      method = nothing;
-      operatorChosen = false;
+      x = method(x, y); // TODO: round to maximum length here
+      displayString = x.toString(); 
     }
+    updateDisplay();
+    displayString = "";
+    justCalculated = true;
+    method = nothing;
+    operatorChosen = false;
+    y = NaN;
   }
 }
 
@@ -88,7 +94,8 @@ function clear() {
   method = nothing;
   operatorChosen = false;
   decimalPointAdded = false;
-  calculated = false;
+  firstNumberPresent = false;
+  justCalculated = false;
   x = NaN;
   y = NaN;
 }
