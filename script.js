@@ -14,6 +14,10 @@ const result = document.querySelector("#calculate");
 const clr = document.querySelector("#clear");
 const display = document.querySelector("#display");
 const decimal = document.querySelector("#dot");
+// const add = document.querySelector("#add");
+// const sub = document.querySelector("#sub");
+// const mul = document.querySelector("#mul");
+// const div = document.querySelector("#div");
 
 for (let number of numbers) {
   const inputNumber = number.textContent;
@@ -63,7 +67,7 @@ decimal.addEventListener("click", decimalInput);
 
 function decimalInput() {
   if (decimalInputActive) {
-    console.log("decimal point has already been input. ignoring")
+    console.log("decimal point has already been input. ignoring");
   } else {
     displayString += ".";
     updateDisplay();
