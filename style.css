@@ -6,6 +6,7 @@ body {
 
 * {
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 #calculator {
@@ -21,8 +22,12 @@ body {
 #display {
   width: 390px;
   height: 90px;
+  padding: 5px;
   background-color: lightgreen;
   color: black;
+  text-align: right;
+  font-size: 85px;
+  font-weight: 900;
 }
 
 #block {
@@ -43,6 +48,7 @@ body {
   margin-bottom: 5px;
   padding-top: 10px;
   text-align: center;
+  font-weight: 500;
 }
 
 #clear,
@@ -50,4 +56,3 @@ body {
 #dot {
   width: 205px;
 }
-/* add font styling for children of block, and for display another one */
