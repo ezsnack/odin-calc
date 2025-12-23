@@ -68,6 +68,8 @@ decimal.addEventListener("click", decimalInput);
 function decimalInput() {
   if (decimalInputActive) {
     console.log("decimal point has already been input. ignoring");
+  } else if (justCalculated) {
+    console.log("cannot add decimal point to calculated result");
   } else {
     displayString += ".";
     updateDisplay();
