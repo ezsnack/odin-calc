@@ -1,5 +1,5 @@
 let displayString = "";
-const MAXLEN = 8; //maximum operand number of digits
+const MAXLEN = 8; //maximum input operand length
 let x = NaN; //first operand
 let y = NaN; //second operand
 let method = nothing;
@@ -62,9 +62,13 @@ decimal.addEventListener("click", decimalInput);
 
 
 function decimalInput() {
-  if (!decimalInputActive)
+  if (decimalInputActive) {
+    console.log("decimal point has already been input. ignoring")
+  } else {
     displayString += ".";
-  decimalInputActive = true;
+    updateDisplay();
+    decimalInputActive = true;
+  }
 }
 
 function updateDisplay() {
