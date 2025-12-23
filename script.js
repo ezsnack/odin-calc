@@ -80,12 +80,16 @@ function calculateResult() {
     displayString = "";
   } else {
     if (method == division && y == 0) {
-      displayString = "~infinity~";
+      displayString = "HMM... 0";
       console.log("division by zero. setting the result to zero");
-      x = 0;
+      x = 0; // mathematically incorrect
     } else {
-      x = method(x, y); // TODO: round to maximum length here
-      displayString = x.toString(); 
+      x = method(x, y);
+      if (x > 99999999) {
+        displayString = "2MUCH";
+        console.log("result too large to display. you can still keep using it for further calculations")
+      } else
+        displayString = x.toString().slice(0, MAXLEN); 
     }
     updateDisplay();
     displayString = "";
