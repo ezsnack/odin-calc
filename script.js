@@ -5,7 +5,7 @@ let y = NaN; //second operand
 let method = nothing;
 let firstNumberPresent = false;
 let operatorChosen = false;
-let decimalPointAdded = false;
+let decimalInputActive = false;
 let justCalculated = false;
 
 const numbers = document.querySelectorAll(".number");
@@ -13,6 +13,7 @@ const operators = document.querySelectorAll(".op");
 const result = document.querySelector("#calculate");
 const clr = document.querySelector("#clear");
 const display = document.querySelector("#display");
+const decimal = document.querySelector("#dot");
 
 for (let number of numbers) {
   const inputNumber = number.textContent;
@@ -34,15 +35,16 @@ for (let operator of operators) {
       justCalculated = false;
       operatorChosen = true;
     } else if (firstNumberPresent) {
-      y = parseInt(displayString);
+      y = parseFloat(displayString);
       calculateResult();
       operatorChosen = true;
       justCalculated = false; // so a new number can be input
     } else {
-      x = parseInt(displayString);
+      x = parseFloat(displayString);
       displayString = "";
       operatorChosen = true;
       firstNumberPresent = true;
+      decimalInputActive = false;
       if (Number.isNaN(x)) {
         console.log("first operand has not been input or is invalid. resetting");
         clear();
@@ -56,15 +58,21 @@ mul.addEventListener("click", () => method = multiplication);
 div.addEventListener("click", () => method = division);
 result.addEventListener("click", calculateResult);
 clr.addEventListener("click", clear);
+decimal.addEventListener("click", decimalInput);
 
 
+function decimalInput() {
+  if (!decimalInputActive)
+    displayString += ".";
+  decimalInputActive = true;
+}
 
 function updateDisplay() {
   display.textContent = displayString;
 }
 
 function calculateResult() {
-  y = parseInt(displayString); //change to parse float later?
+  y = parseFloat(displayString);
   if (!operatorChosen) {
     console.log("no operator chosen");
   } else if (Number.isNaN(y)) {
@@ -93,7 +101,7 @@ function clear() {
   updateDisplay();
   method = nothing;
   operatorChosen = false;
-  decimalPointAdded = false;
+  decimalInputActive = false;
   firstNumberPresent = false;
   justCalculated = false;
   x = NaN;
