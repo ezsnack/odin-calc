@@ -14,6 +14,7 @@ const result = document.querySelector("#calculate");
 const clr = document.querySelector("#clear");
 const display = document.querySelector("#display");
 const decimal = document.querySelector("#dot");
+const back = document.querySelector("#backspace");
 // the next four lines are not necessary as the browser automatically adds references to elements with an id. added to follow best practices
 const add = document.querySelector("#add");
 const sub = document.querySelector("#sub");
@@ -64,6 +65,7 @@ div.addEventListener("click", () => method = division);
 result.addEventListener("click", calculateResult);
 clr.addEventListener("click", clear);
 decimal.addEventListener("click", decimalInput);
+back.addEventListener("click", backspace);
 
 
 function decimalInput() {
@@ -88,7 +90,6 @@ function calculateResult() {
     console.log("no operator chosen");
   } else if (Number.isNaN(y)) {
     console.log("second operand has not been input or is invalid. or you pressed two operators after one another");
-    displayString = "";
   } else {
     if (method == division && y == 0) {
       displayString = "HMM... 0";
@@ -107,6 +108,7 @@ function calculateResult() {
     justCalculated = true;
     method = nothing;
     operatorChosen = false;
+    decimalInputActive = false;
     y = NaN;
   }
 }
@@ -121,6 +123,18 @@ function clear() {
   justCalculated = false;
   x = NaN;
   y = NaN;
+}
+
+function backspace() {
+  if (displayString == "") {
+    console.log("nothing to remove");
+  } else {
+    const lastChar = displayString.charAt(displayString.length - 1);
+    if (lastChar == ".")
+      decimalInputActive = false;
+    displayString = displayString.slice(0, -1);
+    updateDisplay();
+  }
 }
 
 function addition(x, y) {
